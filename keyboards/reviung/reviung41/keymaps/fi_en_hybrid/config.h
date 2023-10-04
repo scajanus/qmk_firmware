@@ -1,0 +1,2 @@
+#define LSPO_KEYS KC_LSFT, KC_LSFT, KC_8
+#define RSPC_KEYS KC_RSFT, KC_LSFT, KC_9
