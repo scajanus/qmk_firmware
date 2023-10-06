@@ -86,10 +86,10 @@ bool rapid_fire = false;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE_FI] = LAYOUT(
-    KC_MS_BTN1,          KC_Q,     KC_W,     KC_E,     KC_R,      KC_T,               KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
-    SFT_T(KC_ESC),              KC_A,     KC_S,     KC_D,     KC_F,      KC_G,               KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_QUOT,
-    KC_LCTL,         KC_Z,     KC_X,     KC_C,     KC_V,      KC_B,               KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  SC_RSPC,
-                                       KC_LALT,   LT(LOWER, KC_ENT),   KC_SPC,    LT(RAISE, KC_BSPC),    KC_RGUI
+    LGUI_T(KC_TAB),          KC_Q,     KC_W,     KC_E,     KC_R,      KC_T,               KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
+    LCTL_T(KC_ESC),  KC_A,     KC_S,     KC_D,     KC_F,      KC_G,               KC_H,     KC_J,     KC_K,     KC_L,     FI_ODIA,  FI_ADIA,
+    SC_LSPO,         KC_Z,     KC_X,     KC_C,     KC_V,      KC_B,               KC_N,     KC_M,     FI_COMM,  FI_DOT,   FI_MINS,  SC_RSPC,
+                                       KC_LALT,   LT(LOWER, KC_ENT),   KC_SPC,    LT(RAISE, KC_BSPC),    KC_RCTL
   ),
 
   [_BASE_EN] = LAYOUT(
@@ -168,4 +168,23 @@ void matrix_scan_user(void) {
     tap_code(KC_MS_BTN1);
   } else {
   }
+}
+bool caps_word_press_user(uint16_t keycode) {
+    switch (keycode) {
+        // Keycodes that continue Caps Word, with shift applied.
+        case KC_A ... KC_Z:
+        case FI_MINS:
+            add_weak_mods(MOD_BIT(KC_LSFT));  // Apply shift to next key.
+            return true;
+
+        // Keycodes that continue Caps Word, without shifting.
+        case KC_1 ... KC_0:
+        case KC_BSPC:
+        case KC_DEL:
+        case KC_UNDS:
+            return true;
+
+        default:
+            return false;  // Deactivate Caps Word.
+    }
 }
