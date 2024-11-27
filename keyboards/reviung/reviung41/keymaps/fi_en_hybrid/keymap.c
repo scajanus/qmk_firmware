@@ -17,7 +17,7 @@
 
 #include QMK_KEYBOARD_H
 #include "keymap_finnish.h"
-//#include "sendstring_finnish.h"
+#include "sendstring_finnish.h"
 //#include "features/custom_shift_keys.h"
 
 // const custom_shift_key_t custom_shift_keys[] = {
